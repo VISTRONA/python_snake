@@ -10,10 +10,10 @@ starting_position = [(00, 00), (-20, 00), (-40, 0)]
 move = 20
 class Snake:
     def __init__(self):
-        self.snake = []
+        self.segments = []
         self.create_snake()
-        self.length = len(self.snake)
-        self.head = self.snake[0]
+        self.length = len(self.segments)
+        self.head = self.segments[0]
 
 
     def create_snake(self):
@@ -22,7 +22,7 @@ class Snake:
 
 
     def extend(self):
-        self.extend_snake(self.snake[-1].position())
+        self.extend_snake(self.segments[-1].position())
 
 
     def extend_snake(self,position):
@@ -32,16 +32,16 @@ class Snake:
         snake_block.shape("square")
         snake_block.goto(position)
 
-        self.snake.append(snake_block)
+        self.segments.append(snake_block)
 
 
 
     def move(self):
 
-        for block_num in range(len(self.snake) - 1, 0, -1):
-            new_x = self.snake[block_num - 1].xcor()
-            new_y = self.snake[block_num - 1].ycor()
-            self.snake[block_num].goto(new_x, new_y)
+        for block_num in range(len(self.segments) - 1, 0, -1):
+            new_x = self.segments[block_num - 1].xcor()
+            new_y = self.segments[block_num - 1].ycor()
+            self.segments[block_num].goto(new_x, new_y)
 
         self.head.forward(move)
 

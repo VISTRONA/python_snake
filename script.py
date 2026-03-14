@@ -1,7 +1,7 @@
 
 from turtle import Turtle,Screen
 
-from orca.flat_review import Line
+
 
 from snake import Snake
 import time
@@ -44,11 +44,23 @@ while game:
         snake.extend()
         score.increase_score()
 
-    if snake.head.xcor() > 275 or snake.head.ycor() > 275 or snake.head.xcor() < -275 or snake.head.ycor() < -275 :
-        score.goto(0, 0)
-        score.game_over()
-        game = False
+    if snake.head.xcor() > 290:
+        snake.head.setx(-290)
+    elif snake.head.xcor() < -290:
+        snake.head.setx(290)
+    elif snake.head.ycor() > 290:
+        snake.head.sety(-290)
+    elif snake.head.ycor() < -290:
+        snake.head.sety(290)
 
+#     detech collion with tail
+    for segs in snake.segments[1:]:
+
+        if snake.head.distance(segs) < 10:
+
+            game = False
+            score.goto(0,0)
+            score.game_over()
 
 
 # tim.shapesize(20,20)
@@ -61,5 +73,3 @@ screen.exitonclick()
 
 #Current issues:
 # 1. Response time of snake turning is too long
-# 2. Draw Borderds
-# 3. Add way so that if snake touches wall it teleports
