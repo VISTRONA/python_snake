@@ -1,7 +1,12 @@
+
 from turtle import Turtle,Screen
+
+from orca.flat_review import Line
+
 from snake import Snake
 import time
 from food import Food
+from score_board import *
 
 
 
@@ -13,6 +18,8 @@ screen.title("Snake Game")
 
 snake = Snake()
 food = Food()
+food.refresh()
+score = scoreboard()
 
 screen.listen()
 screen.onkey(snake.up,"Up")
@@ -24,7 +31,9 @@ screen.update()
 game = True
 while game:
 
+
     screen.update()
+
     time.sleep(0.1)
     snake.move()
 
@@ -32,7 +41,13 @@ while game:
     if snake.head.distance(food) < 15:
         print("Nom Nom")
         food.refresh()
+        snake.extend()
+        score.increase_score()
 
+    if snake.head.xcor() > 275 or snake.head.ycor() > 275 or snake.head.xcor() < -275 or snake.head.ycor() < -275 :
+        score.goto(0, 0)
+        score.game_over()
+        game = False
 
 
 
@@ -46,3 +61,5 @@ screen.exitonclick()
 
 #Current issues:
 # 1. Response time of snake turning is too long
+# 2. Draw Borderds
+# 3. Add way so that if snake touches wall it teleports
